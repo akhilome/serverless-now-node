@@ -8,8 +8,5 @@
     { "src": "404/index.ts", "use": "@now/node" }
   ],
   "regions": ["lhr1", "dub1"],
-  "github": {
-    "autoAlias": false
-  },
   "routes": [{ "handle": "filesystem" }, { "src": "/(.*)", "dest": "/404" }]
 }
