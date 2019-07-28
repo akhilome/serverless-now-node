@@ -1,0 +1,10 @@
+{
+  "name": "serverless-now-node",
+  "version": 2,
+  "alias": "akhilome-snn",
+  "builds": [{ "src": "api/**/*.ts", "use": "@now/node" }],
+  "regions": ["lhr1", "dub1"],
+  "github": {
+    "autoAlias": false
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "serverless-now-node",
+  "version": "0.1.0",
+  "repository": "git@github.com:akhilome/serverless-now-node.git",
+  "author": "Kizito Akhilome <hovkard@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@now/node": "^0.11.1",
+    "@types/node": "^12.6.8",
+    "typescript": "^3.5.3"
+  }
+}
