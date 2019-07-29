@@ -2,6 +2,9 @@
   "name": "serverless-now-node",
   "version": 2,
   "alias": "akhilome-snn",
+  "env": {
+    "DB_URL": "@snn_db_url"
+  },
   "builds": [
     { "src": "api/**/*.ts", "use": "@now/node" },
     { "src": "index.ts", "use": "@now/node" },
