@@ -9,8 +9,12 @@ export default async (
 
   switch (method) {
     case 'POST':
-      const response = await ArticleController.addArticle(req, res);
-      return response;
+      const newArticleResponse = await ArticleController.addArticle(req, res);
+      return newArticleResponse;
+
+    case 'GET':
+      const allArticlesResponse = await ArticleController.getArticles(req, res);
+      return allArticlesResponse;
 
     default:
       return res.status(404).json({
