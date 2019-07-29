@@ -2,6 +2,12 @@ import mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;
 
+interface IBlogPost extends mongoose.Document {
+  title: string;
+  author: string;
+  body: string;
+}
+
 const blogSchema = new Schema({
   title: String,
   author: String,
@@ -9,6 +15,6 @@ const blogSchema = new Schema({
   date: { type: Date, default: Date.now }
 });
 
-const Blog = mongoose.model('Blog', blogSchema);
+const Blog = mongoose.model<IBlogPost>('Blog', blogSchema);
 
 export default Blog;
