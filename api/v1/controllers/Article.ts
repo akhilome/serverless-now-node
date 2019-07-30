@@ -2,6 +2,7 @@ import { NowRequest, NowResponse } from '@now/node';
 
 import '../../../db/config';
 import Blog from '../../../db/models/Blog';
+import { getIdFromPath } from '../../../utils/utils';
 
 class ArticleController {
   static async addArticle(
@@ -32,6 +33,21 @@ class ArticleController {
       success: true,
       message: 'All articles',
       data: { articles }
+    });
+  }
+
+  static async getArticle(
+    req: NowRequest,
+    res: NowResponse
+  ): Promise<NowResponse> {
+    const { url = '' } = req;
+    const articleId = getIdFromPath(url);
+    const article = await Blog.findById(articleId);
+
+    return res.status(200).json({
+      success: true,
+      message: 'Article retrieved',
+      data: { article }
     });
   }
 }

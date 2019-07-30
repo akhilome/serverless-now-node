@@ -17,6 +17,6 @@ Implementing this, I think I would be building a **public** blog api with no aut
 
 - [x] Add new posts to blog
 - [x] View all posts on the blog
-- [ ] View an individual post on the blog
+- [x] View an individual post on the blog
 - [ ] Update a post on the blog (anyone can update any post, no auth required! 🔥)
 - [ ] Delete a post from a blog
