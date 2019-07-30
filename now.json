@@ -14,7 +14,10 @@
   "routes": [
     { "src": "/", "dest": "/index.ts" },
     { "src": "/api/v1", "dest": "/api/v1/routes/index.ts" },
-    { "src": "/api/v1/articles", "dest": "/api/v1/routes/articles/index.ts" },
+    {
+      "src": "/api/v1/articles(.*)",
+      "dest": "/api/v1/routes/articles/index.ts"
+    },
     { "src": "/(.*)", "dest": "/404" }
   ]
 }
