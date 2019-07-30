@@ -50,6 +50,46 @@ class ArticleController {
       data: { article }
     });
   }
+
+  static async updateArticle(
+    req: NowRequest,
+    res: NowResponse
+  ): Promise<NowResponse> {
+    const { url = '' } = req;
+    const articleId = getIdFromPath(url);
+
+    try {
+      const articleExists = await Blog.findById(articleId);
+
+      if (!articleExists)
+        return res.status(400).json({
+          success: false,
+          message: 'No such article exists'
+        });
+
+      const {
+        title = articleExists.title,
+        body = articleExists.body
+      } = req.body;
+
+      const article = await Blog.findByIdAndUpdate(
+        articleId,
+        { title, body },
+        { new: true }
+      );
+
+      return res.status(200).json({
+        success: true,
+        message: 'Article updated',
+        data: { article }
+      });
+    } catch (error) {
+      return res.status(500).json({
+        success: false,
+        message: 'Something went wrong processing your request'
+      });
+    }
+  }
 }
 
 export default ArticleController;

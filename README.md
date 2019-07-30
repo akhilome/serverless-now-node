@@ -8,7 +8,7 @@ Now that config and deployment seems to be working alright, next steps I believe
 
 - [x] Create &rarr; `POST` data
 - [x] Read &rarr; `GET` data
-- [ ] Update &rarr; `PUT` / `PATCH` data
+- [x] Update &rarr; `PUT` / `PATCH` data
 - [ ] Delete &rarr; `DELETE` data
 
 Implementing this, I think I would be building a **public** blog api with no auth.
@@ -18,5 +18,5 @@ Implementing this, I think I would be building a **public** blog api with no aut
 - [x] Add new posts to blog
 - [x] View all posts on the blog
 - [x] View an individual post on the blog
-- [ ] Update a post on the blog (anyone can update any post, no auth required! 🔥)
+- [x] Update a post on the blog (anyone can update any post, no auth required! 🔥)
 - [ ] Delete a post from a blog
