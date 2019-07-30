@@ -1,8 +1,8 @@
 import { NowRequest, NowResponse } from '@now/node';
 
-import '../../../db/config';
-import Blog from '../../../db/models/Blog';
-import { getIdFromPath } from '../../../utils/utils';
+import '../../db/config';
+import Blog from '../../db/models/Blog';
+import { getIdFromPath } from '../../utils';
 
 class ArticleController {
   static async addArticle(
