@@ -6,6 +6,12 @@ const singleArticlePath = new RegExp(/^\/\w{3}\/\w{2}\/\w{8}\/\w{24}\/?$/);
 // matches /api/v1/articles
 const allArticlesPath = new RegExp(/^\/\w{3}\/\w{2}\/\w{8}\/?$/);
 
+const invalidRouteResponse = (res: NowResponse) =>
+  res.status(400).json({
+    success: false,
+    message: 'Invalid route'
+  });
+
 const handleGetRequests = async (
   requestUrl: string,
   req: NowRequest,
@@ -21,10 +27,7 @@ const handleGetRequests = async (
     return allArticlesResponse;
   }
 
-  return res.status(404).json({
-    success: false,
-    message: 'Invalid route'
-  });
+  return invalidRouteResponse(res);
 };
 
 export default async (
@@ -43,22 +46,22 @@ export default async (
       return getArticlesResponse;
 
     case 'PUT':
-      if (!singleArticlePath.test(url)) {
-        return res.status(400).json({
-          success: false,
-          message: 'Invalid route'
-        });
-      }
+      if (!singleArticlePath.test(url)) return invalidRouteResponse(res);
       const updatedArticleResponse = await ArticleController.updateArticle(
         req,
         res
       );
       return updatedArticleResponse;
 
+    case 'DELETE':
+      if (!singleArticlePath.test(url)) return invalidRouteResponse(res);
+      const deleteArticeResponse = await ArticleController.deleteArticle(
+        req,
+        res
+      );
+      return deleteArticeResponse;
+
     default:
-      return res.status(404).json({
-        success: false,
-        message: 'Invalid route'
-      });
+      return invalidRouteResponse(res);
   }
 };
