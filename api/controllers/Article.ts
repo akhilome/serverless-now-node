@@ -90,6 +90,27 @@ class ArticleController {
       });
     }
   }
+
+  static async deleteArticle(
+    req: NowRequest,
+    res: NowResponse
+  ): Promise<NowResponse> {
+    const { url = '' } = req;
+    const articleId = getIdFromPath(url);
+
+    try {
+      await Blog.findByIdAndRemove(articleId);
+      return res.status(204).json({
+        success: true,
+        message: 'Article removed'
+      });
+    } catch (error) {
+      return res.status(500).json({
+        success: false,
+        message: 'Something went wrong processing your request'
+      });
+    }
+  }
 }
 
 export default ArticleController;
