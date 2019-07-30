@@ -7,17 +7,16 @@
   },
   "builds": [
     { "src": "api/**/*.ts", "use": "@now/node" },
-    { "src": "index.ts", "use": "@now/node" },
-    { "src": "404/index.ts", "use": "@now/node" }
+    { "src": "index.ts", "use": "@now/node" }
   ],
   "regions": ["lhr1", "dub1"],
   "routes": [
     { "src": "/", "dest": "/index.ts" },
-    { "src": "/api/v1", "dest": "/api/v1/routes/index.ts" },
+    { "src": "/api/v1", "dest": "/api/routes/index.ts" },
     {
       "src": "/api/v1/articles(.*)",
-      "dest": "/api/v1/routes/articles/index.ts"
+      "dest": "/api/routes/articles.ts"
     },
-    { "src": "/(.*)", "dest": "/404" }
+    { "src": "/(.*)", "dest": "/api/routes/404.ts" }
   ]
 }

@@ -1,5 +1,5 @@
 import { NowRequest, NowResponse } from '@now/node';
-import ArticleController from '../../controllers/Article';
+import ArticleController from '../controllers/Article';
 
 const handleGetRequests = async (
   requestUrl: string,
