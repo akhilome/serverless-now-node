@@ -4,13 +4,33 @@
   "repository": "git@github.com:akhilome/serverless-now-node.git",
   "author": "Kizito Akhilome <hovkard@gmail.com>",
   "license": "MIT",
-  "devDependencies": {
-    "@now/node": "^0.11.1",
-    "@types/mongoose": "^5.5.11",
-    "@types/node": "^12.6.8",
-    "typescript": "^3.5.3"
+  "scripts": {
+    "test": "export NODE_ENV='test' && ts-node tests/seed.ts && jest"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "collectCoverageFrom": [
+      "*/**/*.ts"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/tests/"
+    ]
   },
   "dependencies": {
+    "dotenv": "^8.0.0",
     "mongoose": "^5.6.7"
+  },
+  "devDependencies": {
+    "@now/node": "^0.11.1",
+    "@types/dotenv": "^6.1.1",
+    "@types/jest": "^24.0.16",
+    "@types/mongoose": "^5.5.11",
+    "@types/node": "^12.6.8",
+    "jest": "^24.8.0",
+    "ts-jest": "^24.0.2",
+    "ts-node": "^8.3.0",
+    "typescript": "^3.5.3"
   }
 }
