@@ -21,3 +21,10 @@ const articles: {
 ];
 
 export default articles;
+
+export const mockNewArticleBody = {
+  title: 'Article from Test',
+  author: 'Awesome Tester',
+  body:
+    'This is an article which originated from the test environment right into the test database. I mean, how cool is that?'
+};
