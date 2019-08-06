@@ -1,12 +1,6 @@
 import { NowRequest, NowResponse } from '@now/node';
 
 //@ts-ignore
-export const req: NowRequest = {
-  method: 'GET',
-  body: {},
-  url: ''
-};
-//@ts-ignore
 export const res: NowResponse = {
   status: jest.fn().mockReturnThis(),
   json: jest.fn()
