@@ -1,7 +1,8 @@
 import notFoundRoute from '../../api/routes/404';
-import { req, res } from '../__mocks__';
+import { getReqObject, res } from '../__mocks__';
 
 describe('404 Route', () => {
+  const req = getReqObject();
   it('should return the correct response', () => {
     notFoundRoute(req, res);
 

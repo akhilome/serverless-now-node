@@ -1,8 +1,9 @@
-import { req, res } from '../__mocks__';
+import { res, getReqObject } from '../__mocks__';
 import notFoundRoute from '../../api/routes';
 
-describe('404 Route', () => {
+describe('Index Route', () => {
   it('should return the correct response', () => {
+    const req = getReqObject();
     notFoundRoute(req, res);
 
     expect(res.json).toHaveBeenCalledWith({
