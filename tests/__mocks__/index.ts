@@ -13,6 +13,6 @@ export const getReqObject = (): NowRequest => ({
   url: ''
 });
 
-export const getMockCalls = (mockedObj: any, arg: number): any => {
+export const getMockCalls = (mockedObj: any, arg = 0): any => {
   return mockedObj.mock.calls[0][arg];
 };
