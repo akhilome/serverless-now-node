@@ -11,11 +11,11 @@ describe('Article Route', () => {
     req.url = '/api/v1/articles';
     it('should get all articles', async () => {
       await articlesRoute(req, res);
-      const jsonArg = getMockCalls(res.json, 0);
-      expect(Object.keys(jsonArg)).toEqual(['success', 'message', 'data']);
-      expect(jsonArg.data).toHaveProperty('articles');
-      expect(Array.isArray(jsonArg.data.articles)).toEqual(true);
-      const article = jsonArg.data.articles[0];
+      const resObj = getMockCalls(res.json);
+      expect(Object.keys(resObj)).toEqual(['success', 'message', 'data']);
+      expect(resObj.data).toHaveProperty('articles');
+      expect(Array.isArray(resObj.data.articles)).toEqual(true);
+      const article = resObj.data.articles[0];
 
       expect(Object.keys(article.toObject())).toEqual([
         '_id',
@@ -46,9 +46,53 @@ describe('Article Route', () => {
       req.body = { ...mockNewArticleBody, title: 'Second Article From Test' };
 
       await articlesRoute(req, res);
-      const jsonArg = getMockCalls(res.json, 0);
-      expect(jsonArg.data).toHaveProperty('article');
-      expect(jsonArg.data.article.title).toEqual('Second Article From Test');
+      const resObj = getMockCalls(res.json);
+      expect(resObj.data).toHaveProperty('article');
+      expect(resObj.data.article.title).toEqual('Second Article From Test');
+    });
+  });
+
+  describe('GET /articles/<id>', () => {
+    it('should get a single article', async () => {
+      const articleId = (await Blog.create(mockNewArticleBody))._id;
+
+      const req = getReqObject();
+      req.method = 'GET';
+      req.url = `/api/v1/articles/${articleId}`;
+
+      await articlesRoute(req, res);
+      const resObj = getMockCalls(res.json);
+      expect(resObj.data).toHaveProperty('article');
+      expect(Object.keys(resObj.data.article.toObject())).toEqual([
+        '_id',
+        'title',
+        'author',
+        'body',
+        'date',
+        '__v'
+      ]);
+    });
+
+    it('should return correct response for invalid route', async () => {
+      const req = getReqObject();
+      req.method = 'GET';
+      req.url = '/api/v1/articles/thisarticleidiswrong';
+
+      await articlesRoute(req, res);
+      expect(res.status).toHaveBeenCalledWith(400);
+      const resObj = getMockCalls(res.json);
+      expect(resObj.message).toEqual('Invalid route');
+    });
+
+    it('should return 404 for articles which donot exist', async () => {
+      const req = getReqObject();
+      req.method = 'GET';
+      req.url = '/api/v1/articles/5d49636252a16d555d073902';
+
+      await articlesRoute(req, res);
+      expect(res.status).toHaveBeenCalledWith(404);
+      const resObj = getMockCalls(res.json);
+      expect(resObj.message).toEqual('No such article exists');
     });
   });
 });
