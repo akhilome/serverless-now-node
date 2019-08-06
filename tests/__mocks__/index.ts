@@ -1,5 +1,4 @@
 import { NowRequest, NowResponse } from '@now/node';
-import { MongooseDocument } from 'mongoose';
 
 //@ts-ignore
 export const req: NowRequest = {
@@ -13,21 +12,13 @@ export const res: NowResponse = {
   json: jest.fn()
 };
 
-interface IResponseShape {
-  success: boolean;
-  message: string;
-  data?: object;
-}
+//@ts-ignore
+export const getReqObject = (): NowRequest => ({
+  method: 'GET',
+  body: {},
+  url: ''
+});
 
-interface IArticlesResShape extends IResponseShape {
-  data: {
-    articles: MongooseDocument[];
-  };
-}
-
-export const getMockCalls = (
-  mockedObj: any,
-  arg: number
-): IArticlesResShape => {
+export const getMockCalls = (mockedObj: any, arg: number): any => {
   return mockedObj.mock.calls[0][arg];
 };
