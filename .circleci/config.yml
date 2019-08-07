@@ -1,0 +1,38 @@
+version: 2
+jobs:
+  run_tests:
+    docker:
+      - image: circleci/node:lts
+      - image: mongo:4.0.9
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
+
+      - run:
+          name: Install dependencies
+          command: yarn Install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
+      - run:
+          name: Setup Code Climate test-reporter
+          command: |
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+            chmod +x ./cc-test-reporter
+
+      - run:
+          name: Run Tests & Generate Coverage Report
+          command: |
+            ./cc-test-reporter before-build
+            yarn test --coverage
+            ./cc-test-reporter after-build --coverage-input-type lcov
