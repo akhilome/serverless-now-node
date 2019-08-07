@@ -1,5 +1,7 @@
 # Serverless Deployment w/ Zeit/now
 
+[![CircleCI](https://circleci.com/gh/akhilome/serverless-now-node.svg?style=svg)](https://circleci.com/gh/akhilome/serverless-now-node) [![Test Coverage](https://api.codeclimate.com/v1/badges/f1d9aa39a799fbf0b9da/test_coverage)](https://codeclimate.com/github/akhilome/serverless-now-node/test_coverage)
+
 exploring deploying "serverless" node apis with [Now](https://now.sh)
 
 ## Next Steps
