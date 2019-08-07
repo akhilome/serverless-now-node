@@ -167,4 +167,34 @@ describe('Article Route', () => {
       expect(article.title).toEqual('Updated Title');
     });
   });
+
+  describe('DELETE /articles/<id>', () => {
+    const reqOpts: IReqOpts = {
+      url: '/api/v1/articles/<articleid>',
+      method: 'DELETE'
+    };
+
+    it('should not delete article with invalid id', async () => {
+      const req = getReqObject(reqOpts);
+
+      await articlesRoute(req, res);
+
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.json).toHaveBeenCalledWith({
+        success: false,
+        message: 'Invalid route'
+      });
+    });
+
+    it('should successfully delete an article', async () => {
+      const articleId = (await Blog.create(mockNewArticleBody))._id;
+      const req = getReqObject({
+        ...reqOpts,
+        url: `/api/v1/articles/${articleId}`
+      });
+
+      await articlesRoute(req, res);
+      expect(res.status).toHaveBeenCalledWith(204);
+    });
+  });
 });
