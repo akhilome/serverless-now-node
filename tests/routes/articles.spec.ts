@@ -197,4 +197,23 @@ describe('Article Route', () => {
       expect(res.status).toHaveBeenCalledWith(204);
     });
   });
+
+  describe('Invalid HTTP Method', () => {
+    const reqOpts: IReqOpts = {
+      url: '/api/v1',
+      method: 'PATCH'
+    };
+
+    it('should respond correctly for invalid http method', async () => {
+      const req = getReqObject(reqOpts);
+
+      await articlesRoute(req, res);
+
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.json).toHaveBeenCalledWith({
+        success: false,
+        message: 'Invalid route'
+      });
+    });
+  });
 });
