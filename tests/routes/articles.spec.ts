@@ -108,4 +108,63 @@ describe('Article Route', () => {
       expect(resObj.message).toEqual('No such article exists');
     });
   });
+
+  describe('PUT /articles/<id>', () => {
+    const reqOpts: IReqOpts = {
+      url: '/api/v1/articles',
+      method: 'PUT'
+    };
+    it('should respond correctly for invalid url path', async () => {
+      const req = getReqObject(reqOpts);
+
+      await articlesRoute(req, res);
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.json).toHaveBeenCalledWith({
+        success: false,
+        message: 'Invalid route'
+      });
+    });
+
+    it("should not update an article which doesn't exist", async () => {
+      const req = getReqObject({
+        ...reqOpts,
+        url: '/api/v1/articles/5d49636252a16d555d073902'
+      });
+
+      await articlesRoute(req, res);
+
+      expect(res.status).toHaveBeenCalledWith(404);
+      expect(res.json).toHaveBeenCalledWith({
+        success: false,
+        message: 'No such article exists'
+      });
+    });
+
+    it('should successfully update an article', async () => {
+      const articleId = (await Blog.create(mockNewArticleBody))._id;
+      const req = getReqObject({
+        ...reqOpts,
+        url: `/api/v1/articles/${articleId}`,
+        body: {
+          title: 'Updated Title'
+        }
+      });
+
+      await articlesRoute(req, res);
+      expect(res.status).toHaveBeenCalledWith(200);
+      const resObj = getMockCalls(res.json);
+      expect(Object.keys(resObj)).toEqual(['success', 'message', 'data']);
+      expect(resObj.data).toHaveProperty('article');
+      const article = resObj.data.article.toObject();
+      expect(Object.keys(article)).toEqual([
+        '_id',
+        'title',
+        'author',
+        'body',
+        'date',
+        '__v'
+      ]);
+      expect(article.title).toEqual('Updated Title');
+    });
+  });
 });
